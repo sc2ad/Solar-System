@@ -5,5 +5,6 @@ public class Star extends Object {
 		super(mass, posX, posY, radius);
 		this.name = name;
 		this.radius = radius;
+		this.type = "star";
 	}
 }

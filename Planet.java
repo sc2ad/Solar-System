@@ -5,6 +5,7 @@ public class Planet extends Object {
 	public Planet(String name, double mass, double posX, double posY, double radius) {
 		super(mass, posX, posY, radius);
 		this.name = name;
+		this.type = "planet";
 	}
 	public void setRadius(double radius) {
 		this.radius = radius;

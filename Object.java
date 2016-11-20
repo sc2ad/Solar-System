@@ -9,10 +9,12 @@ public class Object {
 	double ay = 0;
 	double mass = 100;
 	double radius = 0;
+	String type = "object";
 	
 	boolean exists = true;
 	public static final double KG = 1;
 	public static final double KA = 0.03;
+	public static final double KDESTRUCTIONPERCENT = 0.8;
 
 	public Object(double mass, double posX, double posY, double radius) {
 		this.mass = mass;
@@ -40,7 +42,7 @@ public class Object {
 		posX += vx;
 		posY += vy;
 		for (Object o : objects) {
-			if (this.distance(o) <= o.radius && this.exists && o.exists) {
+			if (this.distance(o) + o.radius * KDESTRUCTIONPERCENT < o.radius && this.exists && o.exists) {
 				// Simple collisions
 				if (this.mass > o.mass) {
 					o.exists = false;
@@ -84,16 +86,22 @@ public class Object {
 		//try
 		// Quadrant manipulation
 		double angle = Math.atan(Math.abs(o.posY - this.posY) / Math.abs(o.posX - this.posX)) * 180.0 / Math.PI;
-		if (o.posX - this.posX < 0 && o.posY - this.posY >= 0) {
-			angle = 180 - angle;
-		} 
 		if (o.posX - this.posX < 0 && o.posY - this.posY < 0) {
+			angle = 180 - angle;
+			System.out.println("180-"+type);
+		} 
+		if (o.posX - this.posX < 0 && o.posY - this.posY >= 0) {
 			angle += 180;
+			System.out.println("180+"+type);
+		}
+		if (o.posX - this.posX > 0 && o.posY - this.posY > 0) {
+			angle = 360 - angle;
+			System.out.println("360-"+type);
 		}
 		//System.out.println(angle);
 		double magnitude = (KG * o.mass) / (distance(o) * distance(o));
 		xy[0] = magnitude * Math.cos(angle * Math.PI / 180.0);
-		xy[1] = magnitude * Math.sin(angle * Math.PI / 180.0);
+		xy[1] = -magnitude * Math.sin(angle * Math.PI / 180.0);
 		return xy;
 	}
 	/*

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 public class DrawUniverse extends JFrame {
 	DrawPane d;
+	
 	public DrawUniverse(int x, int y) {
         super("The Universe");
 
@@ -21,6 +22,7 @@ public class DrawUniverse extends JFrame {
         setSize(x+200, y+200);
 
         setVisible(true); 
+        
    }
 	public void update(ArrayList<Object> obs) {
 		d.update(obs);
