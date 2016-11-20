@@ -14,7 +14,7 @@ public class Object {
 	boolean exists = true;
 	public static final double KG = 1;
 	public static final double KA = 0.1;
-	public static final double KDESTRUCTIONPERCENT = 0.6;
+	public static final double KDESTRUCTIONPERCENT = 0.3;
 
 	public Object(double mass, double posX, double posY, double radius) {
 		this.mass = mass;
@@ -88,15 +88,15 @@ public class Object {
 		double angle = Math.atan(Math.abs(o.posY - this.posY) / Math.abs(o.posX - this.posX)) * 180.0 / Math.PI;
 		if (o.posX - this.posX < 0 && o.posY - this.posY < 0) {
 			angle = 180 - angle;
-			System.out.println("180-"+type);
+			//System.out.println("180-"+type);
 		} 
 		if (o.posX - this.posX < 0 && o.posY - this.posY >= 0) {
 			angle += 180;
-			System.out.println("180+"+type);
+			//System.out.println("180+"+type);
 		}
 		if (o.posX - this.posX > 0 && o.posY - this.posY > 0) {
 			angle = 360 - angle;
-			System.out.println("360-"+type);
+			//System.out.println("360-"+type);
 		}
 		//System.out.println(angle);
 		double magnitude = (KG * o.mass) / (distance(o) * distance(o));

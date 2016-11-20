@@ -45,7 +45,14 @@ public class Universe {
 		
 		objects.add(new Object(0.1,600,400,15,0,22.36));
 		
+		objects.add(new Object(0.095, 750, 400, 15, 0, 15));
+		
 		universe.d.reset(objects);
-		for (int i = 0; i < 10; i++) System.out.println();
+		for (int i = 0; i < 12; i++) System.out.println();
+		for (int i = 0; i < objects.size(); i++) {
+			Object temp = objects.get(i);
+			if (!temp.type.equals("star"))
+			System.out.println(temp);
+		}
 	}
 }

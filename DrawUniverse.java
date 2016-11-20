@@ -80,11 +80,13 @@ class DrawPane extends JPanel {
 		        	for (int i = 0; i < posX.size(); i++) {
 		        		g.fillOval((int)(posX.get(i).intValue()), (int)(posY.get(i).intValue()), 2, 2);
 		        	}
-		        	posX.add(x+o.radius/2);
-		        	posY.add(y+o.radius/2);
-		        	if (posX.size() > KMAXBLIPSIZE * objects.size()) {
-		        		posX.remove(0);
-		        		posY.remove(0);
+		        	if (!Universe.paused) {
+			        	posX.add(x+o.radius/2);
+			        	posY.add(y+o.radius/2);
+			        	if (posX.size() > KMAXBLIPSIZE * objects.size()) {
+			        		posX.remove(0);
+			        		posY.remove(0);
+			        	}
 		        	}
 	        	}
 	        	
