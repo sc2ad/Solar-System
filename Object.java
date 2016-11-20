@@ -16,7 +16,7 @@ public class Object {
 	/*
 	@param: obs, an arraylist of objects that are all of the other objects in the universe
 	*/
-	public void execute(Object... obs) {
+	public void main(Object... obs) {
 		posX += vx;
 		posY += vy;
 		vx += ax;
@@ -24,6 +24,9 @@ public class Object {
 		double[] netForce = this.netForces(obs);
 		ax += netForce[0] / this.mass;
 		ay += netForce[1] / this.mass;
+	}
+	public void execute(Object... obs) {
+		main(obs);
 	}
 	/*
 	@param obs, an arraylist of objects that are all of the other objects in the universe
@@ -66,6 +69,10 @@ public class Object {
 	*/
 	public double distance(Object o) {
 		return Math.sqrt(Math.pow(this.posX - o.posX, 2) + Math.pow(this.posY - o.posY, 2));
+	}
+	public void force(double x, double y) {
+		ax += x / this.mass;
+		ay += y / this.mass;
 	}
 	public String toString() {
 		String out = "";
