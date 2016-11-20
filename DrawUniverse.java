@@ -40,6 +40,7 @@ class DrawPane extends JPanel {
 	ArrayList<Double> posY = new ArrayList<Double>();
 	
 	public static final int KMAXBLIPSIZE = 1000;
+	public static final int KLINELENGTH = 20;
 	// Maximum blips for each object
 	
 	public DrawPane(int w, int h) {
@@ -90,7 +91,7 @@ class DrawPane extends JPanel {
 	        			if (o2.exists) {
 	        				double[] grav = o.calcGravity(o2);
 	        				//System.out.println((int)(o.posX + grav[0]));
-	        				g.drawLine((int)(o.posX), (int)(o.posY), (int)(o.posX + grav[0] * 10), (int)(o.posY + grav[1] * 10));
+	        				g.drawLine((int)(o.posX), (int)(o.posY), (int)(o.posX + grav[0] * KLINELENGTH), (int)(o.posY + grav[1] * KLINELENGTH));
 	        				
 	        				//double[] net = o.netForces(objects);
 	        				//g.drawLine((int)(o.posX), (int)(o.posY), (int)(o.posX + net[0]), (int)(o.posY + net[1]));

@@ -41,11 +41,11 @@ public class Universe {
 	}
 	public static void reset() {
 		objects.removeAll(objects);
-		objects.add(new Star("Star",100000,400,400,100));
+		objects.add(new Star("Star",1000,400,400,100));
 		
-		objects.add(new Object(0.1,600,400,15,0,22.36));
+		objects.add(new Object(0.1,600,400,15,0,5.36));
 		
-		objects.add(new Object(0.095, 750, 400, 15, 0, 15));
+		objects.add(new Object(0.095, 750, 400, 15, 0, 3.5));
 		
 		universe.d.reset(objects);
 		for (int i = 0; i < 12; i++) System.out.println();
