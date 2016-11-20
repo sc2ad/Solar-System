@@ -69,25 +69,43 @@ class DrawPane extends JPanel {
     	g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        g.setColor(Color.BLUE);
+        
         try {
 	        for (Object o : objects) {
 	        	if (o.exists) {
 	        		double x = o.posX - o.radius/2;
 	        		double y = o.posY - o.radius/2;
+	        		
+	        		g.setColor(Color.BLUE);
 		        	g.fillOval((int)(x), (int)(y), (int)(o.radius), (int)(o.radius));
 		        	
-		        	for (int i = 0; i < posX.size(); i++) {
+		        	g.setColor(Color.RED);
+	        		for (int i = 0; i < posX.size(); i++) {
 		        		g.fillOval((int)(posX.get(i).intValue()), (int)(posY.get(i).intValue()), 2, 2);
+		        		
 		        	}
-		        	if (!Universe.paused) {
+	        		g.setColor(Color.ORANGE);
+	        		for (int i = 0; i < objects.size(); i++) {
+	        			Object o2 = objects.get(i);
+	        			if (o2.exists) {
+	        				double[] grav = o.calcGravity(o2);
+	        				//System.out.println((int)(o.posX + grav[0]));
+	        				g.drawLine((int)(o.posX), (int)(o.posY), (int)(o.posX + grav[0] * 10), (int)(o.posY + grav[1] * 10));
+	        				
+	        				//double[] net = o.netForces(objects);
+	        				//g.drawLine((int)(o.posX), (int)(o.posY), (int)(o.posX + net[0]), (int)(o.posY + net[1]));
+	        			}
+	        		}
+	        		if (!Universe.paused) {
+	        			// Add MULTICOLORS!!!
 			        	posX.add(x+o.radius/2);
 			        	posY.add(y+o.radius/2);
 			        	if (posX.size() > KMAXBLIPSIZE * objects.size()) {
 			        		posX.remove(0);
 			        		posY.remove(0);
 			        	}
-		        	}
+	        		}
+		        	
 	        	}
 	        	
 	        }

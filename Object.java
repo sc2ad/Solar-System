@@ -82,7 +82,7 @@ public class Object {
 	Returns x and y forces of gravity from the @param of the object
 	*/
 	public double[] calcGravity(Object o) {
-		double[] xy = new double[2];
+		double[] xy = new double[3];
 		//try
 		// Quadrant manipulation
 		double angle = Math.atan(Math.abs(o.posY - this.posY) / Math.abs(o.posX - this.posX)) * 180.0 / Math.PI;
@@ -100,8 +100,16 @@ public class Object {
 		}
 		//System.out.println(angle);
 		double magnitude = (KG * o.mass) / (distance(o) * distance(o));
+		if (Double.isInfinite(magnitude)) {
+			// Checked itself
+			magnitude = 0;
+		}
+		if (Double.isNaN(angle)) {
+			angle = 0;
+		}
 		xy[0] = magnitude * Math.cos(angle * Math.PI / 180.0);
 		xy[1] = -magnitude * Math.sin(angle * Math.PI / 180.0);
+		xy[2] = angle;
 		return xy;
 	}
 	/*
