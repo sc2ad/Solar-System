@@ -13,8 +13,8 @@ public class Object {
 	
 	boolean exists = true;
 	public static final double KG = 1;
-	public static final double KA = 0.03;
-	public static final double KDESTRUCTIONPERCENT = 0.8;
+	public static final double KA = 0.1;
+	public static final double KDESTRUCTIONPERCENT = 0.6;
 
 	public Object(double mass, double posX, double posY, double radius) {
 		this.mass = mass;

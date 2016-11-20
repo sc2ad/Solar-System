@@ -1,12 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class DrawUniverse extends JFrame {
 	DrawPane d;
+	
 	
 	public DrawUniverse(int x, int y) {
         super("The Universe");
@@ -34,6 +36,12 @@ class DrawPane extends JPanel {
 	int width;
 	int height;
 	ArrayList<Object> objects;
+	ArrayList<Double> posX = new ArrayList<Double>();
+	ArrayList<Double> posY = new ArrayList<Double>();
+	
+	public static final int KMAXBLIPSIZE = 1000;
+	// Maximum blips for each object
+	
 	public DrawPane(int w, int h) {
 		width = w;
 		height = h;
@@ -50,6 +58,11 @@ class DrawPane extends JPanel {
 	public void update(ArrayList<Object> objects) {
 		this.objects = objects;
 	}
+	public void reset(ArrayList<Object> objects) {
+		posX.removeAll(posX);
+		posY.removeAll(posY);
+		update(objects);
+	}
     public void paintComponent(Graphics g) {
     	//draw on g here e.g.
         //g.fillRect(0, 0, width, height);
@@ -57,10 +70,27 @@ class DrawPane extends JPanel {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(Color.BLUE);
-        
-        for (Object o : objects) {
-        	if (o.exists)
-        	g.fillOval((int)(o.posX - o.radius/2), (int)(o.posY - o.radius/2), (int)(o.radius), (int)(o.radius));
+        try {
+	        for (Object o : objects) {
+	        	if (o.exists) {
+	        		double x = o.posX - o.radius/2;
+	        		double y = o.posY - o.radius/2;
+		        	g.fillOval((int)(x), (int)(y), (int)(o.radius), (int)(o.radius));
+		        	
+		        	for (int i = 0; i < posX.size(); i++) {
+		        		g.fillOval((int)(posX.get(i).intValue()), (int)(posY.get(i).intValue()), 2, 2);
+		        	}
+		        	posX.add(x+o.radius/2);
+		        	posY.add(y+o.radius/2);
+		        	if (posX.size() > KMAXBLIPSIZE * objects.size()) {
+		        		posX.remove(0);
+		        		posY.remove(0);
+		        	}
+	        	}
+	        	
+	        }
+        } catch (ConcurrentModificationException ex) {
+        	
         }
     }
 }

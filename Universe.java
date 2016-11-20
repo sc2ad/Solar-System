@@ -5,14 +5,16 @@ import java.util.concurrent.TimeUnit;
 public class Universe {
 	public static boolean paused = false;
 	public static ArrayList<Object> objects = new ArrayList<Object>();
+	public static DrawUniverse universe;
 	public static void main(String[] args) {
 		// JFRAME STUFF GOES HERE...
+		universe = new DrawUniverse(800, 800);
+		universe.addKeyListener(new KeyList());
 		
 		reset();
 		
 		//objects.add(new Planet("Hi There!", 100, 500,400,50));
-		DrawUniverse universe = new DrawUniverse(800, 800);
-		universe.addKeyListener(new KeyList());
+		
 		
 		ScheduledExecutorService x = Executors.newSingleThreadScheduledExecutor();
 		
@@ -41,7 +43,9 @@ public class Universe {
 		objects.removeAll(objects);
 		objects.add(new Star("Star",100000,400,400,100));
 		
-		objects.add(new Object(0.1,600,400,15,0,10));
+		objects.add(new Object(0.1,600,400,15,0,22.36));
+		
+		universe.d.reset(objects);
 		for (int i = 0; i < 10; i++) System.out.println();
 	}
 }
