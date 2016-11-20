@@ -70,7 +70,7 @@ class DrawPane extends JPanel {
     	g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        
+        //TODO: ADD IN SCALING, ZOOM, AND PLANET CREATION
         try {
 	        for (Object o : objects) {
 	        	if (o.exists) {
