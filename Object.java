@@ -67,5 +67,9 @@ public class Object {
 	public double distance(Object o) {
 		return Math.sqrt(Math.pow(this.posX - o.posX, 2) + Math.pow(this.posY - o.posY, 2));
 	}
-
+	public String toString() {
+		String out = "";
+		out += "Mass: " + mass + "\tPosition: (" + posX + ", " + posY + ")\tVelocity: (" + vx + ", " + vy + ")\tAcceleration: (" + ax + ", " + ay + ")";
+		return out;
+	}
 }
