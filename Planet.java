@@ -10,6 +10,7 @@ public class Planet extends Object {
 		this.radius = radius;
 	}
 	// Deal with a way to make sure objects stay radius distance away from the planet's center
+	// NEED TO FIX SO IT DOESN'T DESTROY THE OBJECT
 	@Override
 	public void execute(ArrayList<Object> obs) {
 		this.main(obs);

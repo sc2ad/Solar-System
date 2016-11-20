@@ -9,7 +9,10 @@ public class Object {
 	double ay = 0;
 	double mass = 100;
 	double radius = 0;
-	public static final double KG = 5;
+	
+	boolean exists = true;
+	public static final double KG = 1;
+	public static final double KA = 0.03;
 
 	public Object(double mass, double posX, double posY, double radius) {
 		this.mass = mass;
@@ -17,17 +20,37 @@ public class Object {
 		this.posY = posY;
 		this.radius = radius;
 	}
+	public Object(double mass, double posX, double posY, double radius, double vx, double vy) {
+		this.mass = mass;
+		this.posX = posX;
+		this.posY = posY;
+		this.radius = radius;
+		this.vx = vx;
+		this.vy = vy;
+	}
 	/*
 	@param: obs, an arraylist of objects that are all of the other objects in the universe
 	*/
 	public void main(ArrayList<Object> objects) {
-		posX += vx;
-		posY += vy;
+		double[] netForce = this.netForces(objects);
+		ax = netForce[0] * KA / this.mass;
+		ay = netForce[1] * KA / this.mass;
 		vx += ax;
 		vy += ay;
-		double[] netForce = this.netForces(objects);
-		ax += netForce[0] / this.mass;
-		ay += netForce[1] / this.mass;
+		posX += vx;
+		posY += vy;
+		for (Object o : objects) {
+			if (this.distance(o) <= o.radius && this.exists && o.exists) {
+				// Simple collisions
+				if (this.mass > o.mass) {
+					o.exists = false;
+					this.mass += o.mass;
+				} else {
+					this.exists = false;
+					o.mass += this.mass;
+				}
+			}
+		}
 	}
 	public void execute(ArrayList<Object> objects) {
 		main(objects);
@@ -40,10 +63,16 @@ public class Object {
 	public double[] netForces(ArrayList<Object> objects) {
 		double[] output = {0,0};
 		for (Object o : objects) {
-			double[] netForce = this.calcGravity(o);
-			output[0] += netForce[0];
-			output[1] += netForce[1];
-			// Left off
+			if (o.exists) {
+				double[] netForce = this.calcGravity(o);
+				output[0] += netForce[0];
+				output[1] += netForce[1];
+			}
+		}
+		if (output[0] == 0 && output[1] == 0) {
+			output[0] = -ax * this.mass / KA;
+			output[1] = -ay * this.mass / KA;
+			// Reset system so it doesn't accelerate to infinity when there are no objects left
 		}
 		return output;
 	}
@@ -55,16 +84,14 @@ public class Object {
 		//try
 		// Quadrant manipulation
 		double angle = Math.atan(Math.abs(o.posY - this.posY) / Math.abs(o.posX - this.posX)) * 180.0 / Math.PI;
-		if (o.posY - this.posY < 0 && o.posX - this.posX > 0) {
-			angle = 360 - angle;
-		} else if (o.posY - this.posY <= 0 && o.posX - this.posX < 0) {
-			angle += 180;
-		} else if (o.posY - this.posY > 0 && o.posX - this.posX < 0) {
+		if (o.posX - this.posX < 0 && o.posY - this.posY >= 0) {
 			angle = 180 - angle;
+		} 
+		if (o.posX - this.posX < 0 && o.posY - this.posY < 0) {
+			angle += 180;
 		}
-		//catch
-		// angle = 90
-		double magnitude = (KG * this.mass * o.mass) / (distance(o) * distance(o));
+		//System.out.println(angle);
+		double magnitude = (KG * o.mass) / (distance(o) * distance(o));
 		xy[0] = magnitude * Math.cos(angle * Math.PI / 180.0);
 		xy[1] = magnitude * Math.sin(angle * Math.PI / 180.0);
 		return xy;
@@ -81,7 +108,11 @@ public class Object {
 	}
 	public String toString() {
 		String out = "";
-		out += "Mass: " + mass + "\tPosition: (" + posX + ", " + posY + ")\tVelocity: (" + vx + ", " + vy + ")\tAcceleration: (" + ax + ", " + ay + ")";
+		if (exists) {
+			out += "Mass: " + mass + "\tPosition: (" + posX + ", " + posY + ")\tVelocity: (" + vx + ", " + vy + ")\tAcceleration: (" + ax + ", " + ay + ")";
+		} else {
+			out += "Object with mass: "+mass+" no longer exists!";
+		}
 		return out;
 	}
 }

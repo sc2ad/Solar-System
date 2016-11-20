@@ -57,6 +57,7 @@ class DrawPane extends JPanel {
         g.setColor(Color.BLUE);
         
         for (Object o : objects) {
+        	if (o.exists)
         	g.fillOval((int)(o.posX - o.radius/2), (int)(o.posY - o.radius/2), (int)(o.radius), (int)(o.radius));
         }
     }
