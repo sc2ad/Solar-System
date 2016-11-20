@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Object {
 	double posX = 0;
 	double posY = 0;
@@ -6,41 +8,44 @@ public class Object {
 	double ax = 0;
 	double ay = 0;
 	double mass = 100;
+	double radius = 0;
 	public static final double KG = 5;
 
-	public Object(double mass, double posX, double posY) {
+	public Object(double mass, double posX, double posY, double radius) {
 		this.mass = mass;
 		this.posX = posX;
 		this.posY = posY;
+		this.radius = radius;
 	}
 	/*
 	@param: obs, an arraylist of objects that are all of the other objects in the universe
 	*/
-	public void main(Object... obs) {
+	public void main(ArrayList<Object> objects) {
 		posX += vx;
 		posY += vy;
 		vx += ax;
 		vy += ay;
-		double[] netForce = this.netForces(obs);
+		double[] netForce = this.netForces(objects);
 		ax += netForce[0] / this.mass;
 		ay += netForce[1] / this.mass;
 	}
-	public void execute(Object... obs) {
-		main(obs);
+	public void execute(ArrayList<Object> objects) {
+		main(objects);
 	}
 	/*
 	@param obs, an arraylist of objects that are all of the other objects in the universe
 	returns an array of the X and Y netforces
 	KG = Constant of Gravity of the universe
 	*/
-	public double[] netForces(Object... obs) {
+	public double[] netForces(ArrayList<Object> objects) {
 		double[] output = {0,0};
-		for (Object o : obs) {
+		for (Object o : objects) {
 			double[] netForce = this.calcGravity(o);
 			output[0] += netForce[0];
 			output[1] += netForce[1];
 			// Left off
 		}
+		return output;
 	}
 	/*
 	Returns x and y forces of gravity from the @param of the object
@@ -49,10 +54,10 @@ public class Object {
 		double[] xy = new double[2];
 		//try
 		// Quadrant manipulation
-		double angle = Math.arctan(Math.abs(o.posY - this.posY) / Math.abs(o.posX - this.posX)) * 180.0 / Math.PI;
+		double angle = Math.atan(Math.abs(o.posY - this.posY) / Math.abs(o.posX - this.posX)) * 180.0 / Math.PI;
 		if (o.posY - this.posY < 0 && o.posX - this.posX > 0) {
 			angle = 360 - angle;
-		} else if (o.posY - this.posY < 0 && o.posX - this.posX < 0) {
+		} else if (o.posY - this.posY <= 0 && o.posX - this.posX < 0) {
 			angle += 180;
 		} else if (o.posY - this.posY > 0 && o.posX - this.posX < 0) {
 			angle = 180 - angle;
