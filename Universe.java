@@ -3,8 +3,9 @@ public class Universe {
 	public static void main(String[] args) {
 		// JFRAME STUFF GOES HERE...
 		ArrayList<Object> objects = new ArrayList<Object>();
-		objects.add(new Object(1000,0,0));
-		objects.add(new Object(0.1,1,0));
+		objects.add(new Object(100000,0,0));
+		objects.add(new Object(0.1,600,0));
+		objects.add(new Planet("Hi There!", 100, 500,0,50))
 		for (int i = 0; i < 5; i++) {
 			run(objects);
 		}

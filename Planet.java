@@ -1,7 +1,7 @@
 public class Planet extends Object {
 	double radius = 100;
 	String name;
-	public Planet(String name, double mass, double posX, double posY) {
+	public Planet(String name, double mass, double posX, double posY, double radius) {
 		super(mass, posX, posY);
 		this.name = name;
 	}
