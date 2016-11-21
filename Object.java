@@ -13,8 +13,8 @@ public class Object {
 	
 	boolean exists = true;
 	public static final double KG = 1;
-	public static final double KA = 0.1;
-	public static final double KDESTRUCTIONPERCENT = 0.6;
+	public static final double KA = 1;
+	public static final double KDESTRUCTIONPERCENT = 0.3;
 
 	public Object(double mass, double posX, double posY, double radius) {
 		this.mass = mass;
@@ -82,26 +82,34 @@ public class Object {
 	Returns x and y forces of gravity from the @param of the object
 	*/
 	public double[] calcGravity(Object o) {
-		double[] xy = new double[2];
+		double[] xy = new double[3];
 		//try
 		// Quadrant manipulation
 		double angle = Math.atan(Math.abs(o.posY - this.posY) / Math.abs(o.posX - this.posX)) * 180.0 / Math.PI;
 		if (o.posX - this.posX < 0 && o.posY - this.posY < 0) {
 			angle = 180 - angle;
-			System.out.println("180-"+type);
+			//System.out.println("180-"+type);
 		} 
 		if (o.posX - this.posX < 0 && o.posY - this.posY >= 0) {
 			angle += 180;
-			System.out.println("180+"+type);
+			//System.out.println("180+"+type);
 		}
 		if (o.posX - this.posX > 0 && o.posY - this.posY > 0) {
 			angle = 360 - angle;
-			System.out.println("360-"+type);
+			//System.out.println("360-"+type);
 		}
 		//System.out.println(angle);
 		double magnitude = (KG * o.mass) / (distance(o) * distance(o));
+		if (Double.isInfinite(magnitude)) {
+			// Checked itself
+			magnitude = 0;
+		}
+		if (Double.isNaN(angle)) {
+			angle = 0;
+		}
 		xy[0] = magnitude * Math.cos(angle * Math.PI / 180.0);
 		xy[1] = -magnitude * Math.sin(angle * Math.PI / 180.0);
+		xy[2] = angle;
 		return xy;
 	}
 	/*

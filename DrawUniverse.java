@@ -26,8 +26,9 @@ public class DrawUniverse extends JFrame {
         setVisible(true); 
         
    }
-	public void update(ArrayList<Object> obs) {
+	public void update(ArrayList<Object> obs, double scaling) {
 		d.update(obs);
+		d.scaling = scaling;
 	}
 
     //create a component that you can actually draw on.
@@ -38,8 +39,10 @@ class DrawPane extends JPanel {
 	ArrayList<Object> objects;
 	ArrayList<Double> posX = new ArrayList<Double>();
 	ArrayList<Double> posY = new ArrayList<Double>();
+	double scaling = 1.0;
 	
 	public static final int KMAXBLIPSIZE = 1000;
+	public static final int KLINELENGTH = 20;
 	// Maximum blips for each object
 	
 	public DrawPane(int w, int h) {
@@ -69,23 +72,45 @@ class DrawPane extends JPanel {
     	g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        g.setColor(Color.BLUE);
+        //TODO: ADD IN SCALING, ZOOM, AND PLANET CREATION
         try {
 	        for (Object o : objects) {
 	        	if (o.exists) {
-	        		double x = o.posX - o.radius/2;
-	        		double y = o.posY - o.radius/2;
-		        	g.fillOval((int)(x), (int)(y), (int)(o.radius), (int)(o.radius));
+	        		double x = (o.posX - o.radius/2 - getWidth()/2) / scaling + getWidth()/2;
+	        		double y = (o.posY - o.radius/2 - getHeight()/2) / scaling + getHeight()/2;
+	        		double cx = (o.posX - getWidth()/2) / scaling + getWidth()/2;
+	        		double cy = (o.posY - getHeight()/2) / scaling + getHeight()/2;
+	        		
+	        		g.setColor(Color.BLUE);
+		        	g.fillOval((int)(x), (int)(y), (int)(o.radius / scaling), (int)(o.radius / scaling));
 		        	
-		        	for (int i = 0; i < posX.size(); i++) {
+		        	g.setColor(Color.RED);
+	        		for (int i = 0; i < posX.size(); i++) {
 		        		g.fillOval((int)(posX.get(i).intValue()), (int)(posY.get(i).intValue()), 2, 2);
+		        		
 		        	}
-		        	posX.add(x+o.radius/2);
-		        	posY.add(y+o.radius/2);
-		        	if (posX.size() > KMAXBLIPSIZE * objects.size()) {
-		        		posX.remove(0);
-		        		posY.remove(0);
-		        	}
+	        		g.setColor(Color.ORANGE);
+	        		for (int i = 0; i < objects.size(); i++) {
+	        			Object o2 = objects.get(i);
+	        			if (o2.exists) {
+	        				double[] grav = o.calcGravity(o2);
+	        				//System.out.println((int)(o.posX + grav[0]));
+	        				g.drawLine((int)(cx), (int)(cy), (int)(cx + grav[0] * KLINELENGTH), (int)(cy + grav[1] * KLINELENGTH));
+	        				
+	        				//double[] net = o.netForces(objects);
+	        				//g.drawLine((int)(o.posX), (int)(o.posY), (int)(o.posX + net[0]), (int)(o.posY + net[1]));
+	        			}
+	        		}
+	        		if (!Universe.paused) {
+	        			// Add MULTICOLORS!!!
+			        	posX.add(cx);
+			        	posY.add(cy);
+			        	if (posX.size() > KMAXBLIPSIZE * objects.size()) {
+			        		posX.remove(0);
+			        		posY.remove(0);
+			        	}
+	        		}
+		        	
 	        	}
 	        	
 	        }
