@@ -8,6 +8,7 @@ public class Universe {
 	public static ArrayList<Object> objects = new ArrayList<Object>();
 	public static DrawUniverse universe;
 	static double z = 1.0;
+	public static int lineLength = 20;
 	public static void main(String[] args) {
 		// ADD IN PLANET CREATION
 		universe = new DrawUniverse(800, 800);
@@ -49,7 +50,7 @@ public class Universe {
 		
 		obs.add(new Planet("Earth", 10, 1000, 400, 25, 0, 1));
 		
-		
+		obs.add(new Object(1, 12000, 400, 15, -8, 1));
 		
 		return obs;
 	}
@@ -84,5 +85,19 @@ public class Universe {
 		//https://docs.oracle.com/javase/tutorial/uiswing/components/panel.html
 		//http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 		//Panel.add(JOptionPane component or whatever...)
+	}
+	public static void changeLineLength() {
+	    lineLength = -1;
+	    paused = true;
+	    while (lineLength < 0 || lineLength > 100000) {
+			try {
+				lineLength = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter force line factor 0-100000"));
+			} catch (NumberFormatException e) {
+				// Nothing
+			} catch (NullPointerException e) {
+				// Nothing
+			}
+		}
+		paused = false;
 	}
 }

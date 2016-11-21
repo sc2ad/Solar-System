@@ -22,6 +22,9 @@ public class KeyList implements KeyListener {
 		if (key.equalsIgnoreCase("z")) {
 			Universe.zoom();
 		}
+		if (key.equalsIgnoreCase("l")) {
+		    Universe.changeLineLength();
+		}
 	}
 
 	@Override

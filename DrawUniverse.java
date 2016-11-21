@@ -41,8 +41,8 @@ class DrawPane extends JPanel {
 	ArrayList<Double> posY = new ArrayList<Double>();
 	double scaling = 1.0;
 	
-	public static final int KMAXBLIPSIZE = 1000;
-	public static final int KLINELENGTH = 20;
+	public static final int KMAXBLIPSIZE = 100;
+	//public static final int KLINELENGTH = 20;
 	// Maximum blips for each object
 	
 	public DrawPane(int w, int h) {
@@ -71,6 +71,7 @@ class DrawPane extends JPanel {
         //g.fillRect(0, 0, width, height);
     	g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
+        int KLINELENGTH = Universe.lineLength;
 
         //TODO: ADD IN SCALING, ZOOM, AND PLANET CREATION
         try {
