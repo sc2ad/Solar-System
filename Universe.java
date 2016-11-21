@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JOptionPane;
 public class Universe {
 	public static boolean paused = false;
 	public static ArrayList<Object> objects = new ArrayList<Object>();
@@ -28,7 +29,7 @@ public class Universe {
 	}
 	public static void run1(ArrayList<Object> objects, DrawUniverse universe) {
 		if (!paused) {
-			universe.update(objects);
+			universe.update(objects, 1.0);
 			for (int i = 0; i < objects.size(); i++) {
 				Object temp = objects.get(i);
 				objects.remove(i);
@@ -54,5 +55,8 @@ public class Universe {
 			if (!temp.type.equals("star"))
 			System.out.println(temp);
 		}
+	}
+	public static void zoom() {
+		//z = (int)(JOptionPane.showInputDialog)
 	}
 }
