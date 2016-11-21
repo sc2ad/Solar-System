@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Planet extends Object {
 	String name;
-	public Planet(String name, double mass, double posX, double posY, double radius) {
-		super(mass, posX, posY, radius);
+	public Planet(String name, double mass, double posX, double posY, double radius, double vx, double vy) {
+		super(mass, posX, posY, radius, vx, vy);
 		this.name = name;
 		this.type = "planet";
 	}

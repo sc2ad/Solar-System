@@ -76,10 +76,10 @@ class DrawPane extends JPanel {
         try {
 	        for (Object o : objects) {
 	        	if (o.exists) {
-	        		double x = (o.posX - o.radius/2 - 400) / scaling + 400;
-	        		double y = (o.posY - o.radius/2 - 400) / scaling + 400;
-	        		double cx = (o.posX - 400) / scaling + 400;
-	        		double cy = (o.posY - 400) / scaling + 400;
+	        		double x = (o.posX - o.radius/2 - getWidth()/2) / scaling + getWidth()/2;
+	        		double y = (o.posY - o.radius/2 - getHeight()/2) / scaling + getHeight()/2;
+	        		double cx = (o.posX - getWidth()/2) / scaling + getWidth()/2;
+	        		double cy = (o.posY - getHeight()/2) / scaling + getHeight()/2;
 	        		
 	        		g.setColor(Color.BLUE);
 		        	g.fillOval((int)(x), (int)(y), (int)(o.radius / scaling), (int)(o.radius / scaling));
