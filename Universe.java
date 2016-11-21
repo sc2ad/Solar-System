@@ -9,14 +9,11 @@ public class Universe {
 	public static DrawUniverse universe;
 	static double z = 1.0;
 	public static void main(String[] args) {
-		// JFRAME STUFF GOES HERE...
+		// ADD IN PLANET CREATION
 		universe = new DrawUniverse(800, 800);
 		universe.addKeyListener(new KeyList());
 		
-		reset();
-		
-		//objects.add(new Planet("Hi There!", 100, 500,400,50));
-		
+		reset();		
 		
 		ScheduledExecutorService x = Executors.newSingleThreadScheduledExecutor();
 		
@@ -43,6 +40,7 @@ public class Universe {
 	}
 	public static ArrayList<Object> create() {
 		ArrayList<Object> obs = new ArrayList<Object>();
+		
 		obs.add(new Star("Star",10000,400,400,100));
 		
 		obs.add(new Object(0.1,600,400,15,0,22.36));
@@ -50,6 +48,7 @@ public class Universe {
 		obs.add(new Object(0.095, 750, 400, 15, 0, 20));
 		
 		obs.add(new Planet("Earth", 10, 1000, 400, 25, 0, 1));
+		
 		
 		
 		return obs;
@@ -80,5 +79,10 @@ public class Universe {
 		reset();
 		paused = false;
 		universe.d.scaling = z;
+	}
+	public static void createPlanet(ArrayList<Object> obs) {
+		//https://docs.oracle.com/javase/tutorial/uiswing/components/panel.html
+		//http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+		//Panel.add(JOptionPane component or whatever...)
 	}
 }
