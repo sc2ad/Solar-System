@@ -77,7 +77,8 @@ public class Universe {
 				// Nothing
 			}
 		}
-		reset();
+		//reset();
+		universe.d.reset(objects);
 		paused = false;
 		universe.d.scaling = z;
 	}
