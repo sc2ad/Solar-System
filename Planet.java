@@ -2,6 +2,11 @@ import java.util.ArrayList;
 
 public class Planet extends Object {
 	String name;
+	public Planet(double mass, double posX, double posY, double radius, double vx, double vy) {
+	    super(mass, posX, posY, radius, vx, vy);
+	    this.name = "P";
+	    this.type = "planet";
+	}
 	public Planet(String name, double mass, double posX, double posY, double radius, double vx, double vy) {
 		super(mass, posX, posY, radius, vx, vy);
 		this.name = name;

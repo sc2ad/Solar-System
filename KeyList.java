@@ -25,6 +25,9 @@ public class KeyList implements KeyListener {
 		if (key.equalsIgnoreCase("l")) {
 		    Universe.changeLineLength();
 		}
+		if (key.equalsIgnoreCase("n")) {
+		    Universe.createPlanet();
+		}
 	}
 
 	@Override
