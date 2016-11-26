@@ -58,7 +58,7 @@ public class Universe {
         return obs;
     }
     public static void reset() {
-        objects = create();
+        objects = new ArrayList<Object>(create());
         
         universe.d.reset(objects);
         for (int i = 0; i < 12; i++) System.out.println();
@@ -98,7 +98,7 @@ public class Universe {
             vx = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial x velocity:"));
             vy = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial y velocity:"));
             r = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial radius:"));
-            if (r < 1) {
+            if (r < 1 || mass <= 0) {
                 throw new NumberFormatException();
             }
             
