@@ -30,6 +30,14 @@ public class Object {
 		this.vx = vx;
 		this.vy = vy;
 	}
+	public Object(Object o) {
+		mass = o.mass;
+		posX = o.posX;
+		posY = o.posY;
+		radius = o.radius;
+		vx = o.vx;
+		vy = o.vy;
+	}
 	/*
 	@param: obs, an arraylist of objects that are all of the other objects in the universe
 	*/

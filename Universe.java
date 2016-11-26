@@ -51,9 +51,10 @@ public class Universe {
         }
     }
     public static ArrayList<Object> create() {
-        ArrayList<Object> obs = new ArrayList<Object>(initObs);
-        System.out.println(obs.get(1).posX);
-        // Figure out how to reset objects without deleting the cool new planet that we created.
+        ArrayList<Object> obs = new ArrayList<Object>();
+        for (Object o : initObs) {
+        	obs.add(new Object(o));
+        }
         return obs;
     }
     public static void reset() {
