@@ -98,6 +98,7 @@ public class Universe {
             vx = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial x velocity:"));
             vy = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial y velocity:"));
             r = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial radius:"));
+            // Add in better planet creation
             if (r < 1 || mass <= 0) {
                 throw new NumberFormatException();
             }
