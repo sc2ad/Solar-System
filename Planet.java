@@ -22,6 +22,7 @@ public class Planet extends Object {
 		this.main(obs);
 		for (Object o : obs) {
 			if (this.distance(o) <= radius) {
+				System.out.println("Time to MEME!");
 				// Push the object out with a force of gravity (normal force)
 				double[] xy = o.calcGravity(this);
 				xy[0] = -xy[0];

@@ -10,13 +10,13 @@ public class DrawUniverse extends JFrame {
 	DrawPane d;
 	
 	
-	public DrawUniverse(int x, int y) {
+	public DrawUniverse(int x, int y, Universe u) {
         super("The Universe");
 
         //you can set the content pane of the frame 
         //to your custom class.
 
-        d = new DrawPane(x,y);
+        d = new DrawPane(x,y,u);
         setContentPane(d);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,15 +39,18 @@ class DrawPane extends JPanel {
 	ArrayList<Object> objects;
 	ArrayList<Double> posX = new ArrayList<Double>();
 	ArrayList<Double> posY = new ArrayList<Double>();
+	Universe u;
 	double scaling = 1.0;
+	
 	
 	public static final int KMAXBLIPSIZE = 100;
 	//public static final int KLINELENGTH = 20;
 	// Maximum blips for each object
 	
-	public DrawPane(int w, int h) {
+	public DrawPane(int w, int h, Universe u) {
 		width = w;
 		height = h;
+		this.u = u;
 		Thread animationThread = new Thread(new Runnable() {
 			public void run() {
                 while (true) {
@@ -102,7 +105,7 @@ class DrawPane extends JPanel {
 	        				//g.drawLine((int)(o.posX), (int)(o.posY), (int)(o.posX + net[0]), (int)(o.posY + net[1]));
 	        			}
 	        		}
-	        		if (!Universe.paused) {
+	        		if (!u.paused) {
 	        			// Add MULTICOLORS!!!
 			        	posX.add(cx);
 			        	posY.add(cy);

@@ -1,30 +1,38 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 public class Universe {
-    public static boolean paused = false;
+    public boolean paused = false;
     public static ArrayList<Object> objects = new ArrayList<Object>();
     public static ArrayList<Object> initObs = new ArrayList<Object>();
     public static DrawUniverse universe;
     static double z = 1.0;
     public static int lineLength = 20;
+    public Universe() {
+    	
+    }
+    public Universe(Object[] obs) {
+    	initObs = new ArrayList<Object>(Arrays.asList(obs));
+    }
     
-    public static void main(String[] args) {
-        // ADD IN PLANET CREATION
-        universe = new DrawUniverse(800, 800);
-        universe.addKeyListener(new KeyList());
-        initObs.add(new Star("Star",10000,400,400,100));
-        
-        initObs.add(new Object(0.1,600,400,15,0,22.36));
-        
-        initObs.add(new Object(0.095, 750, 400, 15, 0, 20));
-        
-        initObs.add(new Planet("Earth", 10, 1000, 400, 25, 0, 1));
-        
-        initObs.add(new Object(1, 12000, 400, 15, -8, 1));
-        
+    public void initRun() {
+    	// ADD IN PLANET CREATION
+        universe = new DrawUniverse(800, 800, this);
+        universe.addKeyListener(new KeyList(this));
+        if (initObs.size() == 0) {
+	        initObs.add(new Star("Star",10000,400,400,100));
+	        
+	        initObs.add(new Object(0.1,600,400,15,0,22.36));
+	        
+	        initObs.add(new Object(0.095, 750, 400, 15, 0, 20));
+	        
+	        initObs.add(new Planet("Earth", 10, 1000, 400, 25, 0, 1));
+	        
+	        initObs.add(new Object(1, 12000, 400, 15, -8, 1));
+        }
         reset();        
         
         ScheduledExecutorService x = Executors.newSingleThreadScheduledExecutor();
@@ -35,9 +43,8 @@ public class Universe {
                 run1(objects, universe);
             }
         }, 0, 25, TimeUnit.MILLISECONDS);
-        
     }
-    public static void run1(ArrayList<Object> objects, DrawUniverse universe) {
+    public void run1(ArrayList<Object> objects, DrawUniverse universe) {
         if (!paused) {
             universe.update(objects, z);
             for (int i = 0; i < objects.size(); i++) {
@@ -50,14 +57,14 @@ public class Universe {
             }
         }
     }
-    public static ArrayList<Object> create() {
+    public ArrayList<Object> create() {
         ArrayList<Object> obs = new ArrayList<Object>();
         for (Object o : initObs) {
         	obs.add(new Object(o));
         }
         return obs;
     }
-    public static void reset() {
+    public void reset() {
         objects = new ArrayList<Object>(create());
         
         universe.d.reset(objects);
@@ -68,7 +75,7 @@ public class Universe {
             System.out.println(temp);
         }
     }
-    public static void zoom() {
+    public void zoom() {
         paused = true;
         z = 0;
         while (z < 1 || z > 100) {
@@ -84,7 +91,7 @@ public class Universe {
         paused = false;
         universe.d.scaling = z;
     }
-    public static void createPlanet() {
+    public void createPlanet() {
         //https://docs.oracle.com/javase/tutorial/uiswing/components/panel.html
         //http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
         //Panel.add(JOptionPane component or whatever...)
@@ -115,7 +122,7 @@ public class Universe {
         JOptionPane.showMessageDialog(null, "Planet created!");
         paused = false;
    }
-    public static void changeLineLength() {
+    public void changeLineLength() {
         lineLength = -1;
         paused = true;
         while (lineLength < 0 || lineLength > 100000) {

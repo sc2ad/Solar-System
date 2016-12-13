@@ -3,6 +3,11 @@ import java.awt.event.KeyListener;
 
 public class KeyList implements KeyListener {
 
+	Universe u;
+	public KeyList(Universe u) {
+		this.u = u;
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -14,19 +19,19 @@ public class KeyList implements KeyListener {
 		int keyCode = arg0.getKeyCode();
 		String key = KeyEvent.getKeyText(keyCode);
 		if (key.equalsIgnoreCase("p")) {
-			Universe.paused = !Universe.paused;
+			u.paused = !u.paused;
 		}
 		if (key.equalsIgnoreCase("r")) {
-			Universe.reset();
+			u.reset();
 		}
 		if (key.equalsIgnoreCase("z")) {
-			Universe.zoom();
+			u.zoom();
 		}
 		if (key.equalsIgnoreCase("l")) {
-		    Universe.changeLineLength();
+		    u.changeLineLength();
 		}
 		if (key.equalsIgnoreCase("n")) {
-		    Universe.createPlanet();
+		    u.createPlanet();
 		}
 	}
 
