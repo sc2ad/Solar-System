@@ -109,6 +109,7 @@ public class Universe {
     public void createPlanet() {
         // Allows (basic) creation of planets
         paused = true;
+        String name = "Star";
         double mass, r, vx, vy;
         int px, py;
         try {
@@ -118,6 +119,15 @@ public class Universe {
             vx = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial x velocity:"));
             vy = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial y velocity:"));
             r = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter the initial radius:"));
+            int type = (int)(Math.random() * 3);
+            
+            switch (type) {
+            case 0: name = "Star"; break;
+            case 1: name = "Planet"; break;
+            case 2: name = "Craft"; break;
+            case 3: name = "Object"; break;
+            }
+ 
             // Add in better planet creation
             if (r < 1 || mass <= 0) {
                 throw new NumberFormatException();
@@ -130,7 +140,13 @@ public class Universe {
             JOptionPane.showMessageDialog(null, "You canceled planet creation.");
             return;
         }
-        initObs.add(new Planet(mass, px, py, r, vx, vy));
+        switch (name) {
+        case "Star": initObs.add(new Star(name, mass, px, py, r)); break;
+        case "Planet": initObs.add(new Planet(name, mass, px, py, r, vx, vy)); break;
+        case "Craft": initObs.add(new Craft(mass, px, py, r)); break;
+        case "Object": initObs.add(new Object(mass, px, py, r, vy, vy)); break;
+        }
+ 
         reset();
         JOptionPane.showMessageDialog(null, "Planet created!");
         paused = false;
