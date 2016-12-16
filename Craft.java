@@ -15,6 +15,7 @@ public class Craft extends Object {
 		vy += ay;
 		posX += vx;
 		posY += vy;
+		// Doesn't get destroyed by other objects
 	}
 
 }
