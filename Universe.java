@@ -226,7 +226,7 @@ public class Universe {
     		} catch (NumberFormatException e) {
 	    		// Didn't enter a number
 	        	JOptionPane.showMessageDialog(null, "You didn't type a number!");
-	        	continue;
+	        	return;
 	        } catch (NullPointerException e) {
 	            // Cancelled
 	        	JOptionPane.showMessageDialog(null, "Cancelled!");
@@ -237,8 +237,19 @@ public class Universe {
     	}
     	// No error catching here yet
     	String forceVal = JOptionPane.showInputDialog(null, "Enter a force to push object "+ob+" (type: xforce yforce)");
-    	String forceX = forceVal.substring(0,forceVal.indexOf(" "));
-    	String forceY = forceVal.substring(forceVal.indexOf(" "));
-    	objects.get(ob).force(Integer.parseInt(forceX), Integer.parseInt(forceY));
+    	try {
+	    	String forceX = forceVal.substring(0,forceVal.indexOf(" "));
+	    	String forceY = forceVal.substring(forceVal.indexOf(" ")+1);
+	    	objects.get(ob).force(Integer.parseInt(forceX), Integer.parseInt(forceY));
+    	} catch (StringIndexOutOfBoundsException e) {
+	    	JOptionPane.showMessageDialog(null, "You didn't follow the instructions!");
+	    }
+    	paused = false;
+    }
+    public void help() {
+    	paused = true;
+    	JOptionPane.showMessageDialog(null, "Press 'n' to make a new planet, 'p' to pause, 'r' to reset, 'z' to zoom in and out, and 'l' to change vector lengths, 'd' to destroy or un-destroy an obect, 'SHIFT-D' to DELETE and object (forever), 'f' to force an object");
+		JOptionPane.showMessageDialog(null, "To make another Universe, press SHIFT-C");
+		paused = false;
     }
 }
