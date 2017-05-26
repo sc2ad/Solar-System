@@ -52,6 +52,9 @@ public class KeyList implements KeyListener {
 		if (key.equalsIgnoreCase("h")) {
 			u.help();
 		}
+		if (key.equalsIgnoreCase("x")) {
+			u.sort();
+		}
 	}
 
 	@Override

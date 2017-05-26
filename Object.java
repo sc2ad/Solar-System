@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Object {
+public class Object implements GravitableObject {
 	double posX = 0;
 	double posY = 0;
 	double vx = 0;
@@ -12,9 +12,6 @@ public class Object {
 	String type = "object";
 	
 	boolean exist = true;
-	public static final double KG = 1; // Gravitational constant
-	public static final double KA = 1; // Acceleration constant
-	public static final double KDESTRUCTIONPERCENT = 0.3; // Destruction constant
 
 	// Different constructors to have initial velocities
 	public Object(double mass, double posX, double posY, double radius) {
